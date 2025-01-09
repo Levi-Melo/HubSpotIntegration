@@ -98,7 +98,7 @@ docker run {image_name}
 This is a simple application to fetch contacts from a specific endpoint and convert to the right payload of HubSpot contact create and upsert apis.
 This run a script where we divided the contacts in 2 with email and without email, the HubSpot contact api use contact as a index of their data, so instead of try create and if there is a conflict I divided and work simultaneous each one, I notice that the script was kinda low and start working with more threads on requests, but still need to throttle to not break the ratelimit of apis
    
-![alt text](image.png)
+![alt text][diagram_url]
 
 ### Layers
 While we try to keep the app simple we still have need for some layers and divided contexts, so in this app we ha 3 main layers. 
@@ -127,7 +127,7 @@ While we try to keep the app simple we still have need for some layers and divid
 [repo_url]: https://github.com/Levi-Melo/HubSpotIntegration
 [repo_logo_url]: https://avatars.githubusercontent.com/u/326419?s=200&v=4
 [repo_logo_img]: https://avatars.githubusercontent.com/u/326419?s=200&v=4
-
+[diagram_url]: https://i.imgur.com/bf0DOob.png
 
 <!-- Libraries -->
 [configuration_abstraction]: https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Abstractions
