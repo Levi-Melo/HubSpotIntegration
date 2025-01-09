@@ -1,5 +1,6 @@
 ﻿using HubSpotIntegrate.Dto;
 using HubSpotIntegrate.Interfaces;
+using HubSpotIntegrate.Models;
 using Serilog;
 
 namespace HubSpotIntegrate.Services
@@ -37,8 +38,15 @@ namespace HubSpotIntegrate.Services
         /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task CreateContact(ContactDTO input)
         {
-            var response = await _hubspotClient.CreateContact(input);
-            Log.Debug("Contact with ID: {P1} was *CREATED*", response);
+            try
+            {
+                var response = await _hubspotClient.CreateContact(input);
+                Log.Debug("Contact with ID: {P1} was *CREATED*", response);
+            }
+            catch (Exception err)
+            {
+                Log.Error("Something went realy wrong {P1}", err.Message);
+            }
         }
 
 
@@ -49,8 +57,15 @@ namespace HubSpotIntegrate.Services
         /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task UpsertContact(ContactDTO input)
         {
-            var response = await _legacyHubspotClient.UpsertContact(input);
-            Log.Debug("Contact with ID: {P1} was *UPSERTED*", response);
+            try
+            {
+                var response = await _legacyHubspotClient.UpsertContact(input);
+                Log.Debug("Contact with ID: {P1} was *UPSERTED*", response);
+            } 
+            catch(Exception err)
+            {
+                Log.Error("Something went realy wrong {P1}", err.Message);
+            }
         }
 
         /// <summary>
@@ -59,7 +74,15 @@ namespace HubSpotIntegrate.Services
         /// <returns>A task that represents the asynchronous operation. The task result contains the list of contacts.</returns>
         public async Task<IList<ContactDTO>> GetContacts()
         {
-            return await _awsClient.GetContacts();
+            try
+            {
+                return await _awsClient.GetContacts();
+            }
+            catch (Exception err)
+            {
+                Log.Error("Something went realy wrong {P1}", err.Message);
+                return [];
+            }
         }
     }
 }
