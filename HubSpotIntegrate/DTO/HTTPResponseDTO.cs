@@ -1,4 +1,5 @@
 ﻿using HubSpotIntegrate.DTO.Enums;
+using Serilog;
 using System.Net;
 
 namespace HubSpotIntegrate.DTO
@@ -47,6 +48,7 @@ namespace HubSpotIntegrate.DTO
         {
             if (!Validations[ValidationType].Contains(StatusCode))
             {
+                Log.Error($"Error: {StatusCode} - {ResponseContent}");
                 throw new Exception($"Error: {StatusCode} - {ResponseContent}");
             }
         }

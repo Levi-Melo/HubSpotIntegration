@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using HubSpotIntegrate.DTO;
@@ -7,9 +6,9 @@ using HubSpotIntegrate.DTO;
 namespace HubSpotIntegrate.Gateways
 {
     /// <summary>
-    /// BaseGateway class provides methods to perform HTTP operations such as GET, POST, and PATCH for child Gateways.
+    /// BaseGateway class provides methods to perform HTTP operations such as GET and POST for child Gateways.
     /// </summary>
-    /// <typeparam name="T">The type of the payload for the POST and PATCH method.</typeparam>
+    /// <typeparam name="T">The type of the payload for the POST method.</typeparam>
     public abstract class BaseGateway<T>
     {
         /// <summary>
@@ -63,21 +62,6 @@ namespace HubSpotIntegrate.Gateways
             var stringPayload = JsonSerializer.Serialize(payload);
             var requestContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(realUrl, requestContent);
-            var json = await response.Content.ReadAsStringAsync();
-            return new HTTPResponseDTO(response.StatusCode, json);
-        }
-
-        /// <summary>
-        /// Performs a PATCH request with the specified payload to the specified URL.
-        /// </summary>
-        /// <param name="id">The identifier to append to the URL.</param>
-        /// <param name="payload">The payload to send in the PATCH request.</param>
-        /// <param name="url">The URL to send the PATCH request to.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the HTTP response.</returns>
-        protected async Task<HTTPResponseDTO> Patch(string id, T payload, string url = "")
-        {
-            var realUrl = httpClient.BaseAddress + url + "/" + id;
-            var response = await httpClient.PatchAsync(realUrl, JsonContent.Create(payload));
             var json = await response.Content.ReadAsStringAsync();
             return new HTTPResponseDTO(response.StatusCode, json);
         }

@@ -9,6 +9,6 @@
         /// Processes the integration using multiple processes.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        Task MultiProcess();
+        Task Process();
     }
 }

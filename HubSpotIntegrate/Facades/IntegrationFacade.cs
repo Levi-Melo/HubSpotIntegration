@@ -24,7 +24,7 @@ namespace HubSpotIntegrate.Facades
         /// The contacts are divided by 2, repective with email and witout email, them processed on parallel while each thread process TaskCapacity simultaneously
         /// </remarks>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task MultiProcess()
+        public async Task Process()
         {
             Log.Information("Starting process");
 

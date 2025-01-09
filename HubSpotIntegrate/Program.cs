@@ -10,6 +10,6 @@ builder.Services.Inject();
 using IHost host = builder.Build();
 var facade = host.Services.GetRequiredService<IIntegrationFacade>();
 var start = DateTime.Now;
-await facade.MultiProcess();
+await facade.Process();
 
 Log.Information("Process started at {P1} and finished at {P2}", start, DateTime.Now);
